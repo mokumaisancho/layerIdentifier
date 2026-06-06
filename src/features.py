@@ -119,3 +119,11 @@ def all_layers_features(per_layer_norms: dict[int, list[float]]) -> dict[str, fl
     for idx in sorted(per_layer_norms.keys()):
         out.update(layer_norm_features(per_layer_norms[idx], idx))
     return out
+
+
+def partial_layer_features(norms: list[float], layer_idx: int) -> dict[str, float]:
+    """Same as layer_norm_features but for a prefix of the trajectory.
+
+    Used during early-exit: compute features from norms seen so far.
+    """
+    return layer_norm_features(norms, layer_idx)
