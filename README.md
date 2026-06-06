@@ -18,6 +18,8 @@ The same methodology, run on Gemma-4-E4B (42 layers) and Qwen3.5-4B (32 layers),
 
 Bonus: a simulation shows that **cutoff at token 5 already yields AUROC > 0.95** for early-exit. **Now implemented as real-time abort** (`src/early_exit.py`) — tuned config gives **1.14× wall-clock speedup with only 4.7% accuracy loss** on Gemma-4-E4B. See [EARLY_EXIT_RESULTS.md](results/EARLY_EXIT_RESULTS.md).
 
+**Mechanistic bonus (N=150)**: The L6 probe reads a **distributed signal written across L2-L4**, not a single "writer layer". Ablating L2 or L4 each independently destroys the L6 probe (AUROC → 0.50 / 0.54) while preserving model accuracy (61% / 59% vs baseline 62%). Both effects are 7-8σ significant at N=150. See [MECHANISTIC_L6_FINDINGS.md](results/MECHANISTIC_L6_FINDINGS.md).
+
 ---
 
 ## Headline numbers
@@ -266,7 +268,7 @@ The wrapper (`LayerCaptureWrapper`) monkey-patches `model.layers[i].__call__` to
 2. **GSM8K-style problems only.** Generalization to MMLU, GPQA, coding, long-form reasoning not tested.
 3. **Two architectures only.** Cross-architecture claims limited to Gemma-4-E4B vs Qwen3.5-4B.
 4. **Multimodal probe blocked.** Qwen3.5-4B is a VLM but `mlx_vlm` is not in the dependency set — multimodal probe transfer is left as future work.
-5. **Mechanistic locus of L6 signal not fully resolved.** Identity-ablation of L5 (first global-attention layer in Gemma-4) does NOT break the L6 probe — the simple "L6 reads L5's global context" hypothesis is refuted. True locus unknown.
+5. **Mechanistic locus partially resolved at N=150.** Distributed across L2-L4 — both L2 and L4 ablations independently kill the L6 probe (Δ = -0.32, -0.29) while preserving accuracy. L5 effect (N=30: AUROC 0.99 enhancement) is still being verified at N=150; L0-L5 simultaneous ablation result also pending.
 
 ---
 

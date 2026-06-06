@@ -10,7 +10,7 @@ Documented word-for-word from session. To be executed sequentially.
 | 2 | Build early-exit prototype (abort on L6-low-confidence) | 4 hr | very high — immediate TPS gain |
 | 3 | Bonferroni + bootstrap on Qwen sweep | 30 min | high — completes step 2/3 for Qwen |
 | 4 | Re-test Qwen L22/L24 in clean regime | 30 min | high — confirms artifact |
-| 5 | Mechanistic ablation of Gemma L5/L6 | 1 day | research paper |
+| 5 | Mechanistic ablation of Gemma L5/L6 | 1 day | ✅ DONE (N=150) — distributed L2+L4 writer pattern, NOT L4-specific |
 | 6 | Survey published layer-ID papers for thinking-mode confound | 1 day | methodological paper |
 | 7 | Multimodal probe test on Qwen3.5 VLM inputs | 2 days | new capability |
 

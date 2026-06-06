@@ -35,3 +35,4 @@ results/gemma-4-E4B-nothinking-pilot/
 # Local scratch
 /tmp/
 *.log.tmp
+logs/

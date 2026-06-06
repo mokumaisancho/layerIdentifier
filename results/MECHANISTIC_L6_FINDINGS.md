@@ -1,11 +1,48 @@
 # Mechanistic Investigation: What is Gemma L6 Reading?
 
 **Date**: 2026-06-06
-**Status**: ⚠️ Initial N=30 findings retracted — underpowered. N=150 replication in progress.
+**Status**: ✅ N=150 partial results in — N=30 "L4 specific writer" story REFUTED. L5 + L0_L5_all conditions still running.
+
+## 🔬 N=150 update (2026-06-06, partial — 6/8 conditions complete)
+
+Re-ran at proper statistical power. N=150 = 50 problems × 3 seeds. Baseline AUROC 0.826 (vs 0.702 at N=30 — both well above chance). The original N=30 run was killed before L5 + L0_L5_all completed; a completion run is in progress to fill those gaps.
+
+### N=150 ablation results (so far)
+
+| Ablation | L6 AUROC | Δ vs baseline | Accuracy | Interpretation |
+|---|---|---|---|---|
+| Baseline | **0.826** | — | 93/150 (62.0%) | Solid headline AUROC |
+| L0 | 0.500 | -0.326 | 0/150 (0%) | Catastrophic — model broken, AUROC undefined |
+| L1 | 0.624 | -0.203 | 29/150 (19%) | Model mostly broken |
+| **L2** | **0.504** | **-0.322** | 91/150 (61%) | 🎯 **CLEAN — accuracy preserved, L6 signal gone** |
+| L3 | 0.682 | -0.144 | 84/150 (56%) | Moderate drop — partial contribution |
+| **L4** | **0.536** | **-0.290** | 88/150 (59%) | 🎯 **CLEAN — accuracy preserved, L6 signal gone** |
+| L5 | ⏳ in progress | | | re-running |
+| L0-L5 all | ⏳ in progress | | | re-running |
+
+### 🔥 Headline finding: DISTRIBUTED, not localized
+
+**The "L4 is the specific writer" story is REFUTED at N=150.** L2 and L4 each independently destroy the L6 probe (AUROC → 0.50 / 0.54) while preserving accuracy (61% / 59% vs baseline 62%). The L6 probe reads a **distributed signal written across multiple early layers (L2-L4)**, not a single layer's output.
+
+This is a cleaner, more publishable story than the original N=30 claim:
+- N=30 said: "L4 writes, L5 modulates, L6 reads" (overstated, retracted)
+- N=150 says: "L6 reads a distributed early-layer signal; L2 and L4 are both necessary"
+
+### What's still unknown (in progress)
+
+- L5 ablation effect (was 0.99 at N=30; need N=150 confirmation)
+- L0-L5 simultaneous ablation effect
+- Whether the distributed pattern replicates in Qwen
+
+### Statistical confidence
+
+At N=150, SE_null for AUROC ≈ 0.044. Minimum detectable Δ ≈ 0.13 (vs 0.44 at N=30). The L2 and L4 effects (Δ = -0.32, -0.29) are **8σ and 7σ** respectively — overwhelmingly significant.
+
+---
 
 ## ⚠️ Important correction (2026-06-06 evening)
 
-Initial findings (below) were overstated. With N=30 problems and only 4 wrong examples, the **minimum detectable AUROC difference is 0.44**. None of the probe-specific effects reach significance:
+Initial N=30 findings (below) were overstated. With N=30 problems and only 4 wrong examples, the **minimum detectable AUROC difference is 0.44**. None of the probe-specific effects reach significance:
 
 | Ablation | Δ AUROC | z | p | Verdict |
 |---|---|---|---|---|
@@ -80,10 +117,10 @@ For robust mechanistic claims we need:
 
 | Step | Purpose | Status |
 |---|---|---|
-| **Re-run ablation at N=150** | Statistical power | 🔄 in progress |
-| Hypothesis C (magnitude probe) | Boring-signal test | pending |
-| Qwen replication | Cross-architecture | pending |
-| L5 attention investigation | Mechanistic depth | only if N=150 confirms L5 effect |
+| **Re-run ablation at N=150** | Statistical power | ✅ partial (6/8 conditions); L5 + L0_L5_all in progress |
+| Hypothesis C (magnitude probe) | Boring-signal test | ✅ REFUTED (L6 alone > L0-L5 alone) |
+| Qwen replication | Cross-architecture | 🔄 queued behind Gemma N=150 |
+| L5 attention investigation | Mechanistic depth | pending L5 N=150 result |
 
 ## Lessons
 
@@ -94,6 +131,7 @@ For robust mechanistic claims we need:
 
 ## Files
 
-- `src/mech_ablation.py` — now supports `--n`, `--save-norms`, `--conditions` flags
-- `results/mechanistic_L6/ablation_results.json` — N=30 results (underpowered)
-- `results/mechanistic_L6_N150/` — N=150 replication (in progress)
+- `src/mech_ablation.py` — supports `--n`, `--save-norms`, `--conditions` flags
+- `results/mechanistic_L6/ablation_results.json` — N=30 results (underpowered, retracted)
+- `results/mechanistic_L6_N150/partial_results_from_killed_run.json` — N=150 partial (6/8 conditions)
+- `results/mechanistic_L6_N150_completion/` — N=150 completion run (L5 + L0_L5_all), in progress

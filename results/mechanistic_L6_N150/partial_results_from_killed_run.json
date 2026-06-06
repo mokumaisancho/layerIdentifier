@@ -1,0 +1,61 @@
+{
+  "n_problems": 150,
+  "n_seeds": 3,
+  "n_unique_problems": 50,
+  "model": "gemma-4-E4B-it-MLX-8bit",
+  "target_layer": 6,
+  "feature": "convergence_slope",
+  "wall_clock_total_partial": "7150s (1h59m before kill)",
+  "conditions_completed": ["baseline", "L0", "L1", "L2", "L3", "L4"],
+  "conditions_incomplete": ["L5 (75/150 at kill)", "L0_L5_all (not started)"],
+  "results": {
+    "baseline": {
+      "auroc_L6_convergence_slope": 0.826,
+      "n_correct": 93,
+      "n_problems": 150,
+      "accuracy": 0.62,
+      "elapsed_s": 882.4
+    },
+    "ablate_L0": {
+      "auroc_L6_convergence_slope": 0.500,
+      "delta_auroc_vs_baseline": -0.326,
+      "n_correct": 0,
+      "delta_correct_vs_baseline": -93,
+      "note": "CATASTROPHIC — model broken, no positive labels, AUROC undefined",
+      "elapsed_s": 1887.5
+    },
+    "ablate_L1": {
+      "auroc_L6_convergence_slope": 0.624,
+      "delta_auroc_vs_baseline": -0.203,
+      "n_correct": 29,
+      "delta_correct_vs_baseline": -64,
+      "note": "Model mostly broken — accuracy 19%",
+      "elapsed_s": 449.8
+    },
+    "ablate_L2": {
+      "auroc_L6_convergence_slope": 0.504,
+      "delta_auroc_vs_baseline": -0.322,
+      "n_correct": 91,
+      "delta_correct_vs_baseline": -2,
+      "note": "CLEAN RESULT — accuracy preserved (61%), L6 signal GONE",
+      "elapsed_s": 908.2
+    },
+    "ablate_L3": {
+      "auroc_L6_convergence_slope": 0.682,
+      "delta_auroc_vs_baseline": -0.144,
+      "n_correct": 84,
+      "delta_correct_vs_baseline": -9,
+      "note": "Moderate drop — L3 contributes but not critical",
+      "elapsed_s": 940.5
+    },
+    "ablate_L4": {
+      "auroc_L6_convergence_slope": 0.536,
+      "delta_auroc_vs_baseline": -0.290,
+      "n_correct": 88,
+      "delta_correct_vs_baseline": -5,
+      "note": "CLEAN RESULT — accuracy preserved (59%), L6 signal GONE. Refutes N=30 'L4 is the writer' — multiple layers contribute",
+      "elapsed_s": 958.2
+    }
+  },
+  "preliminary_interpretation": "At N=150, the L6 probe signal depends on DISTRIBUTED computation across L0-L5, not a single 'writer' layer. L2 ablation kills L6 signal (AUROC 0.50) while preserving accuracy (61%). L4 ablation also kills signal (0.54). Both are 'writers'. The N=30 'L4 is the specific writer' story is REFUTED at proper statistical power. L5 effect (enhancement) is still unknown — re-run needed."
+}
