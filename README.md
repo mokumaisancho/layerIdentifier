@@ -16,7 +16,7 @@ The same methodology, run on Gemma-4-E4B (42 layers) and Qwen3.5-4B (32 layers),
 
 3. **Probes don't transfer cross-architecture.** A probe trained on Gemma evaluated on Qwen drops to AUROC 0.798 (from within-Gemma 0.981). A probe trained on Qwen evaluated on Gemma drops to 0.500 (pure chance). The *phenomenon* generalizes; the *encoding* does not.
 
-Bonus: a simulation shows that **cutoff at token 5 already yields AUROC > 0.95** for early-exit, giving ~1.3× TPS speedup — a directly publishable speedup technique.
+Bonus: a simulation shows that **cutoff at token 5 already yields AUROC > 0.95** for early-exit. **Now implemented as real-time abort** (`src/early_exit.py`) — tuned config gives **1.14× wall-clock speedup with only 4.7% accuracy loss** on Gemma-4-E4B. See [EARLY_EXIT_RESULTS.md](results/EARLY_EXIT_RESULTS.md).
 
 ---
 
@@ -176,21 +176,28 @@ layerIdentifier/
 │   ├── model_loader.py                # MLX model loading + n_layers resolution
 │   ├── layer_capture.py               # LayerCaptureWrapper (monkey-patches model.layers[i].__call__)
 │   ├── entropy_pipeline.py            # generate_with_full_capture() — entropy + all layers + stop_sequences
-│   ├── features.py                    # IDENTICAL feature formulas to parallel_l4_tot
+│   ├── features.py                    # IDENTICAL feature formulas to parallel_l4_tot + partial_layer_features
 │   ├── probe_dataset.py               # 50 GSM8K-style problems × 3 seeds
 │   ├── layer_ranker.py                # per-layer AUROC + Bonferroni-corrected ranking
 │   ├── sweep.py                       # full sweep over all problem-seeds
 │   ├── emit_check.py                  # 5-problem smoke probe
 │   ├── compare_to_qwen.py             # relative-depth cross-model comparison
+│   ├── early_exit.py                  # train_probe + generate_with_early_exit (NEW)
+│   ├── early_exit_bench.py            # CLI bench for early-exit (NEW)
+│   ├── mech_ablation.py               # Mechanistic ablation: what does L6 read? (NEW)
 │   └── cli.py                         # emit-check | sweep
 └── results/
     ├── FINAL_FINDINGS_2026-06-06.md   # comprehensive findings document
     ├── NEXT_MOVES_2026-06-06.md       # 7 follow-up investigations + results
+    ├── EARLY_EXIT_RESULTS.md          # real-time abort bench + threshold tuning (NEW)
     ├── gemma-4-E4B-nothinking/        # CLEAN Gemma results (published)
     │   ├── captures.json              # 9.5MB — 150 captures, raw per-layer norms
     │   ├── layer_ranking.json         # full ranking
     │   ├── layer_ranking.md           # top-30 + per-layer best
     │   └── sweep.log
+    ├── gemma-4-E4B-earlyexit/         # early-exit bench outputs (NEW)
+    │   ├── early_exit_bench_c5_t0.5_a2.json   # aggressive config (1.53× / -28% acc)
+    │   └── early_exit_bench_c10_t0.2_a4.json  # tuned config (1.14× / -4.7% acc)
     └── qwen3.5-4B-nothinking/         # CLEAN Qwen results (published)
         ├── captures.json              # 6.7MB — 150 captures, raw per-layer norms
         ├── layer_ranking.json
@@ -226,8 +233,8 @@ The wrapper (`LayerCaptureWrapper`) monkey-patches `model.layers[i].__call__` to
 | Cross-model relative-depth comparison | N/A | `src/compare_to_qwen.py` |
 | Bonferroni correction on rankings | N/A | Applied (alpha = 0.05 / n_tests) |
 | Cross-architecture probe transfer | N/A | Documented in NEXT_MOVES Move #1 |
-| Early-exit simulation | N/A | Documented in NEXT_MOVES Move #2 |
-| Mechanistic ablation hooks | N/A | IdentityLayer class (NEXT_MOVES Move #5) |
+| Early-exit simulation | N/A | **Implemented**: `src/early_exit.py`, `src/early_exit_bench.py`. 1.14× wall-clock speedup with 4.7% accuracy loss on tuned config. |
+| Mechanistic ablation hooks | N/A | IdentityLayer class (`src/mech_ablation.py`) — ablate L0..L5 to test what L6 reads. |
 
 ---
 

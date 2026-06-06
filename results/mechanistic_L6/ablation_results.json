@@ -1,0 +1,57 @@
+{
+  "baseline": {
+    "auroc_l6_convergence_slope": 0.7019230769230769,
+    "elapsed_s": 144.3421352908481,
+    "n_correct": 26,
+    "n_problems": 30
+  },
+  "ablate_L0": {
+    "auroc_l6_convergence_slope": 0.5,
+    "delta_auroc_vs_baseline": -0.20192307692307687,
+    "n_correct": 0,
+    "delta_correct_vs_baseline": -26,
+    "elapsed_s": 353.1798917078413
+  },
+  "ablate_L1": {
+    "auroc_l6_convergence_slope": 0.645,
+    "delta_auroc_vs_baseline": -0.056923076923076854,
+    "n_correct": 10,
+    "delta_correct_vs_baseline": -16,
+    "elapsed_s": 69.40863991691731
+  },
+  "ablate_L2": {
+    "auroc_l6_convergence_slope": 0.6538461538461539,
+    "delta_auroc_vs_baseline": -0.04807692307692302,
+    "n_correct": 26,
+    "delta_correct_vs_baseline": 0,
+    "elapsed_s": 122.22113179205917
+  },
+  "ablate_L3": {
+    "auroc_l6_convergence_slope": 0.6923076923076923,
+    "delta_auroc_vs_baseline": -0.009615384615384581,
+    "n_correct": 26,
+    "delta_correct_vs_baseline": 0,
+    "elapsed_s": 124.87401808286086
+  },
+  "ablate_L4": {
+    "auroc_l6_convergence_slope": 0.5673076923076923,
+    "delta_auroc_vs_baseline": -0.13461538461538458,
+    "n_correct": 26,
+    "delta_correct_vs_baseline": 0,
+    "elapsed_s": 150.72503666603006
+  },
+  "ablate_L5": {
+    "auroc_l6_convergence_slope": 0.9903846153846154,
+    "delta_auroc_vs_baseline": 0.28846153846153855,
+    "n_correct": 26,
+    "delta_correct_vs_baseline": 0,
+    "elapsed_s": 121.92532645887695
+  },
+  "ablate_L0_L5_all": {
+    "auroc_l6_convergence_slope": 0.5,
+    "delta_auroc_vs_baseline": -0.20192307692307687,
+    "n_correct": 0,
+    "delta_correct_vs_baseline": -26,
+    "elapsed_s": 234.99005183414556
+  }
+}
