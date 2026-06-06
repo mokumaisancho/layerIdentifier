@@ -1,0 +1,37 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+.python-version
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Models — never commit weights
+*.mlx
+*.safetensors
+*.gguf
+*.bin
+models/
+
+# Large / deprecated captures
+# These were thinking-mode-influenced and are excluded from the public release
+# to avoid misleading readers. The CLEAN results live under
+# results/gemma-4-E4B-nothinking/ and results/qwen3.5-4B-nothinking/.
+results/gemma-4-E4B/
+results/gemma-4-E4B-chattemplate/
+results/gemma-4-E4B-nothinking-pilot/
+
+# Local scratch
+/tmp/
+*.log.tmp

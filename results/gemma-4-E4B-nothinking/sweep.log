@@ -1,0 +1,168 @@
+[sweep] loading /Volumes/BUF_2T_02/models/gemma-4-E4B-it-MLX-8bit
+[sweep] model: Model  layers: 42  path: gemma-4-E4B-it-MLX-8bit
+[sweep] 150 problem-seed runs  chat_template=True thinking=False stops=['<turn|>', '<|end|>']
+[1/150] arith_001 seed=7 ... tok=14 tps=3.7 correct=True
+[2/150] arith_001 seed=42 ... tok=14 tps=5.4 correct=True
+[3/150] arith_001 seed=123 ... tok=14 tps=5.4 correct=True
+[4/150] arith_002 seed=7 ... tok=20 tps=5.7 correct=True
+[5/150] arith_002 seed=42 ... tok=20 tps=5.7 correct=True
+[6/150] arith_002 seed=123 ... tok=20 tps=5.6 correct=True
+[7/150] arith_003 seed=7 ... tok=13 tps=5.2 correct=True
+[8/150] arith_003 seed=42 ... tok=13 tps=5.2 correct=True
+[9/150] arith_003 seed=123 ... tok=13 tps=5.2 correct=True
+[10/150] arith_004 seed=7 ... tok=32 tps=6.8 correct=True
+[11/150] arith_004 seed=42 ... tok=32 tps=6.9 correct=True
+[12/150] arith_004 seed=123 ... tok=32 tps=6.9 correct=True
+[13/150] arith_005 seed=7 ... tok=24 tps=6.0 correct=True
+[14/150] arith_005 seed=42 ... tok=24 tps=6.0 correct=True
+[15/150] arith_005 seed=123 ... tok=24 tps=6.0 correct=True
+[16/150] arith_006 seed=7 ... tok=24 tps=6.5 correct=True
+[17/150] arith_006 seed=42 ... tok=24 tps=6.5 correct=True
+[18/150] arith_006 seed=123 ... tok=24 tps=6.5 correct=True
+[19/150] arith_007 seed=7 ... tok=24 tps=6.4 correct=True
+[20/150] arith_007 seed=42 ... tok=24 tps=6.4 correct=True
+[21/150] arith_007 seed=123 ... tok=40 tps=7.2 correct=True
+[22/150] arith_008 seed=7 ... tok=28 tps=6.7 correct=True
+[23/150] arith_008 seed=42 ... tok=20 tps=6.1 correct=True
+[24/150] arith_008 seed=123 ... tok=24 tps=6.4 correct=True
+[25/150] arith_009 seed=7 ... tok=24 tps=5.9 correct=True
+[26/150] arith_009 seed=42 ... tok=24 tps=5.9 correct=True
+[27/150] arith_009 seed=123 ... tok=24 tps=6.0 correct=True
+[28/150] arith_010 seed=7 ... tok=32 tps=6.9 correct=True
+[29/150] arith_010 seed=42 ... tok=32 tps=6.9 correct=True
+[30/150] arith_010 seed=123 ... tok=32 tps=6.9 correct=True
+[31/150] geom_001 seed=7 ... tok=20 tps=6.1 correct=True
+[32/150] geom_001 seed=42 ... tok=20 tps=6.1 correct=True
+[33/150] geom_001 seed=123 ... tok=20 tps=6.1 correct=True
+[34/150] geom_002 seed=7 ... tok=28 tps=6.6 correct=False
+[35/150] geom_002 seed=42 ... tok=28 tps=6.7 correct=False
+[36/150] geom_002 seed=123 ... tok=28 tps=6.7 correct=False
+[37/150] geom_003 seed=7 ... tok=36 tps=6.6 correct=False
+[38/150] geom_003 seed=42 ... tok=36 tps=6.6 correct=False
+[39/150] geom_003 seed=123 ... tok=36 tps=6.7 correct=False
+[40/150] geom_004 seed=7 ... tok=24 tps=6.4 correct=True
+[41/150] geom_004 seed=42 ... tok=24 tps=6.4 correct=True
+[42/150] geom_004 seed=123 ... tok=24 tps=6.5 correct=True
+[43/150] geom_005 seed=7 ... tok=24 tps=6.4 correct=True
+[44/150] geom_005 seed=42 ... tok=24 tps=6.5 correct=True
+[45/150] geom_005 seed=123 ... tok=24 tps=6.4 correct=True
+[46/150] geom_006 seed=7 ... tok=32 tps=6.8 correct=False
+[47/150] geom_006 seed=42 ... tok=32 tps=6.8 correct=False
+[48/150] geom_006 seed=123 ... tok=32 tps=6.9 correct=False
+[49/150] geom_007 seed=7 ... tok=64 tps=7.5 correct=False
+[50/150] geom_007 seed=42 ... tok=68 tps=7.5 correct=False
+[51/150] geom_007 seed=123 ... tok=60 tps=7.4 correct=False
+[52/150] geom_008 seed=7 ... tok=28 tps=6.2 correct=True
+[53/150] geom_008 seed=42 ... tok=28 tps=6.2 correct=True
+[54/150] geom_008 seed=123 ... tok=28 tps=6.1 correct=True
+[55/150] geom_009 seed=7 ... tok=28 tps=6.6 correct=False
+[56/150] geom_009 seed=42 ... tok=28 tps=6.7 correct=False
+[57/150] geom_009 seed=123 ... tok=28 tps=6.6 correct=False
+[58/150] geom_010 seed=7 ... tok=24 tps=6.4 correct=True
+[59/150] geom_010 seed=42 ... tok=24 tps=6.4 correct=True
+[60/150] geom_010 seed=123 ... tok=24 tps=6.4 correct=True
+[61/150] count_001 seed=7 ... tok=12 tps=5.1 correct=False
+[62/150] count_001 seed=42 ... tok=12 tps=5.1 correct=False
+[63/150] count_001 seed=123 ... tok=12 tps=5.0 correct=False
+[64/150] count_002 seed=7 ... tok=36 tps=6.6 correct=True
+[65/150] count_002 seed=42 ... tok=36 tps=6.5 correct=True
+[66/150] count_002 seed=123 ... tok=36 tps=6.5 correct=True
+[67/150] count_003 seed=7 ... tok=16 tps=5.5 correct=True
+[68/150] count_003 seed=42 ... tok=16 tps=5.5 correct=True
+[69/150] count_003 seed=123 ... tok=16 tps=5.5 correct=True
+[70/150] count_004 seed=7 ... tok=20 tps=5.9 correct=True
+[71/150] count_004 seed=42 ... tok=20 tps=6.0 correct=True
+[72/150] count_004 seed=123 ... tok=20 tps=5.9 correct=True
+[73/150] count_005 seed=7 ... tok=11 tps=4.7 correct=True
+[74/150] count_005 seed=42 ... tok=11 tps=4.7 correct=True
+[75/150] count_005 seed=123 ... tok=14 tps=5.2 correct=False
+[76/150] count_006 seed=7 ... tok=15 tps=5.3 correct=False
+[77/150] count_006 seed=42 ... tok=15 tps=5.3 correct=False
+[78/150] count_006 seed=123 ... tok=15 tps=5.3 correct=False
+[79/150] count_007 seed=7 ... tok=15 tps=5.3 correct=True
+[80/150] count_007 seed=42 ... tok=15 tps=5.3 correct=True
+[81/150] count_007 seed=123 ... tok=15 tps=5.3 correct=True
+[82/150] count_008 seed=7 ... tok=20 tps=5.9 correct=True
+[83/150] count_008 seed=42 ... tok=11 tps=4.6 correct=False
+[84/150] count_008 seed=123 ... tok=20 tps=5.8 correct=True
+[85/150] count_009 seed=7 ... tok=44 tps=6.6 correct=False
+[86/150] count_009 seed=42 ... tok=44 tps=6.7 correct=False
+[87/150] count_009 seed=123 ... tok=44 tps=6.7 correct=False
+[88/150] count_010 seed=7 ... tok=15 tps=5.2 correct=False
+[89/150] count_010 seed=42 ... tok=15 tps=5.3 correct=False
+[90/150] count_010 seed=123 ... tok=15 tps=5.2 correct=False
+[91/150] comp_001 seed=7 ... tok=44 tps=6.6 correct=True
+[92/150] comp_001 seed=42 ... tok=40 tps=6.4 correct=True
+[93/150] comp_001 seed=123 ... tok=44 tps=6.5 correct=True
+[94/150] comp_002 seed=7 ... tok=32 tps=6.0 correct=True
+[95/150] comp_002 seed=42 ... tok=28 tps=5.8 correct=True
+[96/150] comp_002 seed=123 ... tok=32 tps=6.0 correct=False
+[97/150] comp_003 seed=7 ... tok=36 tps=6.6 correct=True
+[98/150] comp_003 seed=42 ... tok=36 tps=6.6 correct=True
+[99/150] comp_003 seed=123 ... tok=44 tps=6.8 correct=True
+[100/150] comp_004 seed=7 ... tok=40 tps=6.3 correct=False
+[101/150] comp_004 seed=42 ... tok=40 tps=6.3 correct=False
+[102/150] comp_004 seed=123 ... tok=40 tps=6.2 correct=False
+[103/150] comp_005 seed=7 ... tok=76 tps=6.9 correct=False
+[104/150] comp_005 seed=42 ... tok=76 tps=6.9 correct=False
+[105/150] comp_005 seed=123 ... tok=76 tps=6.9 correct=False
+[106/150] comp_006 seed=7 ... tok=40 tps=6.6 correct=True
+[107/150] comp_006 seed=42 ... tok=40 tps=6.4 correct=True
+[108/150] comp_006 seed=123 ... tok=44 tps=6.6 correct=True
+[109/150] comp_007 seed=7 ... tok=44 tps=6.7 correct=False
+[110/150] comp_007 seed=42 ... tok=44 tps=6.7 correct=False
+[111/150] comp_007 seed=123 ... tok=44 tps=6.7 correct=False
+[112/150] comp_008 seed=7 ... tok=40 tps=6.0 correct=False
+[113/150] comp_008 seed=42 ... tok=40 tps=6.1 correct=False
+[114/150] comp_008 seed=123 ... tok=40 tps=6.2 correct=False
+[115/150] comp_009 seed=7 ... tok=20 tps=5.5 correct=True
+[116/150] comp_009 seed=42 ... tok=20 tps=5.5 correct=True
+[117/150] comp_009 seed=123 ... tok=20 tps=5.4 correct=True
+[118/150] comp_010 seed=7 ... tok=28 tps=5.5 correct=True
+[119/150] comp_010 seed=42 ... tok=28 tps=5.4 correct=True
+[120/150] comp_010 seed=123 ... tok=28 tps=5.2 correct=True
+[121/150] multi_001 seed=7 ... tok=52 tps=5.6 correct=False
+[122/150] multi_001 seed=42 ... tok=60 tps=5.9 correct=False
+[123/150] multi_001 seed=123 ... tok=60 tps=5.9 correct=False
+[124/150] multi_002 seed=7 ... tok=40 tps=5.2 correct=False
+[125/150] multi_002 seed=42 ... tok=40 tps=5.7 correct=False
+[126/150] multi_002 seed=123 ... tok=40 tps=5.0 correct=False
+[127/150] multi_003 seed=7 ... tok=96 tps=6.4 correct=False
+[128/150] multi_003 seed=42 ... tok=96 tps=6.6 correct=False
+[129/150] multi_003 seed=123 ... tok=96 tps=6.9 correct=False
+[130/150] multi_004 seed=7 ... tok=72 tps=6.9 correct=False
+[131/150] multi_004 seed=42 ... tok=72 tps=6.8 correct=False
+[132/150] multi_004 seed=123 ... tok=72 tps=6.8 correct=False
+[133/150] multi_005 seed=7 ... tok=44 tps=6.4 correct=True
+[134/150] multi_005 seed=42 ... tok=44 tps=6.2 correct=True
+[135/150] multi_005 seed=123 ... tok=44 tps=6.0 correct=True
+[136/150] multi_006 seed=7 ... tok=40 tps=6.2 correct=False
+[137/150] multi_006 seed=42 ... tok=52 tps=6.5 correct=False
+[138/150] multi_006 seed=123 ... tok=40 tps=5.9 correct=False
+[139/150] multi_007 seed=7 ... tok=40 tps=5.9 correct=True
+[140/150] multi_007 seed=42 ... tok=40 tps=6.0 correct=True
+[141/150] multi_007 seed=123 ... tok=40 tps=6.2 correct=True
+[142/150] multi_008 seed=7 ... tok=24 tps=5.4 correct=True
+[143/150] multi_008 seed=42 ... tok=24 tps=5.2 correct=True
+[144/150] multi_008 seed=123 ... tok=72 tps=6.7 correct=True
+[145/150] multi_009 seed=7 ... tok=32 tps=5.9 correct=True
+[146/150] multi_009 seed=42 ... tok=32 tps=5.7 correct=True
+[147/150] multi_009 seed=123 ... tok=32 tps=5.9 correct=True
+[148/150] multi_010 seed=7 ... tok=24 tps=6.0 correct=True
+[149/150] multi_010 seed=42 ... tok=24 tps=5.8 correct=True
+[150/150] multi_010 seed=123 ... tok=24 tps=5.6 correct=True
+[sweep] wrote results/gemma-4-E4B-nothinking/captures.json (150 captures, 93 correct)
+[sweep] wrote layer_ranking.md / .json
+{
+  "n_layers": 42,
+  "n_runs": 150,
+  "n_correct": 93,
+  "accuracy": 0.62,
+  "elapsed_s": 789.3943906249478,
+  "use_chat_template": true,
+  "enable_thinking": false,
+  "stop_sequences": [
+    "<turn|>",
+    "<|end|>"
+  ]
+}
