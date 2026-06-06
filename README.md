@@ -46,13 +46,35 @@ Bonus: a simulation shows that **cutoff at token 5 already yields AUROC > 0.95**
 Statistical validation (Gemma clean, N=150):
 - Bonferroni-corrected: 93/588 features survive at α=8.3e-5
 - L6 best feature (convergence_slope): z=6.31, p=2.8e-10
-- Bootstrap 95% CI for L6: [0.728, 0.877]
+- Bootstrap 95% CI for L6: [0.723, 0.881]
 - 5-fold CV L6: 0.810 ± 0.072
 
 Statistical validation (Qwen clean, N=150):
 - Bonferroni-corrected: 143/448 features survive at α=1.12e-4
 - L15 n_spikes: z=7.44, p=9.97e-14
+- Bootstrap 95% CI for L15: [0.835, 0.936]
 - convergence_slope dominates Qwen top-30 (19/30 features)
+
+## Plots
+
+Visual summary in `results/plots/`:
+
+| Plot | What it shows |
+|---|---|
+| `01_per_layer_auroc_curve.png` | Per-layer AUROC vs relative depth (Gemma + Qwen overlay) |
+| `02_thinking_vs_nothinking.png` | Correct vs wrong distributions for L6 Gemma, L15 Qwen |
+| `03_threshold_tuning_heatmap.png` | Early-exit net_win by cutoff × threshold |
+| `04_L0_L6_buildup.png` | Probe signal builds L0→L4, peaks at L6 |
+| `05_p_correct_trajectories.png` | Example P(correct) trajectories correct vs wrong |
+
+## Out-of-sample validation
+
+Probe trained on 120 captures / 40 problems, tested on 30 captures / 10 held-out problems:
+- **Probe AUROC on held-out: 0.968** (vs 0.951 in-sample CV)
+- **Tuned config on held-out: 0% false-abort rate** (53.8% sensitivity)
+- Probe generalizes — does not memorize specific problems
+
+See [out_of_sample_eval.json](results/out_of_sample_eval.json).
 
 ---
 
