@@ -1,0 +1,102 @@
+{
+  "feature_cis": {
+    "L6_convergence_slope": {
+      "model": "qwen",
+      "label": "Qwen L6 conv_slope",
+      "auroc": 0.869376222560313,
+      "ci_low": 0.808897180366207,
+      "ci_high": 0.920190237031433,
+      "se": 0.02994248332027662,
+      "n_pos": 107,
+      "n_neg": 43
+    },
+    "L15_max_positive_delta": {
+      "model": "gemma",
+      "label": "Gemma L15 max_pos_delta",
+      "auroc": 0.7910771552537257,
+      "ci_low": 0.7173649229575062,
+      "ci_high": 0.863539598108747,
+      "se": 0.04008054255367741,
+      "n_pos": 93,
+      "n_neg": 57
+    },
+    "L6_mean_norm": {
+      "model": "gemma",
+      "label": "Gemma L6 mean_norm",
+      "auroc": 0.7766459158649311,
+      "ci_low": 0.6927375156650272,
+      "ci_high": 0.8558864122805976,
+      "se": 0.04150612728016643,
+      "n_pos": 93,
+      "n_neg": 57
+    },
+    "L41_n_spikes": {
+      "model": "gemma",
+      "label": "Gemma L41 n_spikes",
+      "auroc": 0.7662705149971704,
+      "ci_low": 0.6756326789529914,
+      "ci_high": 0.8535568255131964,
+      "se": 0.044148803520923645,
+      "n_pos": 93,
+      "n_neg": 57
+    },
+    "L2_convergence_slope": {
+      "model": "gemma",
+      "label": "Gemma L2 conv_slope",
+      "auroc": 0.744199207696661,
+      "ci_low": 0.6442574783182571,
+      "ci_high": 0.833417330469711,
+      "se": 0.049508768062640145,
+      "n_pos": 93,
+      "n_neg": 57
+    },
+    "L15_n_spikes": {
+      "model": "qwen",
+      "label": "Qwen L15 n_spikes",
+      "auroc": 0.8891545316235601,
+      "ci_low": 0.8346063762626262,
+      "ci_high": 0.9360409907138062,
+      "se": 0.026206471058110647,
+      "n_pos": 107,
+      "n_neg": 43
+    },
+    "L7_convergence_slope": {
+      "model": "qwen",
+      "label": "Qwen L7 conv_slope",
+      "auroc": 0.8724190393392741,
+      "ci_low": 0.8147838451805843,
+      "ci_high": 0.9197371323529411,
+      "se": 0.028611385994243316,
+      "n_pos": 107,
+      "n_neg": 43
+    },
+    "L5_convergence_slope": {
+      "model": "qwen",
+      "label": "Qwen L5 conv_slope",
+      "auroc": 0.8700282547272332,
+      "ci_low": 0.8033560463659147,
+      "ci_high": 0.9232804232804233,
+      "se": 0.031591583886654576,
+      "n_pos": 107,
+      "n_neg": 43
+    },
+    "L2_delta_mean": {
+      "model": "qwen",
+      "label": "Qwen L2 delta_mean",
+      "auroc": 0.8635079330580309,
+      "ci_low": 0.8034066562074087,
+      "ci_high": 0.9167714186118571,
+      "se": 0.03047948599179512,
+      "n_pos": 107,
+      "n_neg": 43
+    }
+  },
+  "early_exit": {
+    "mean_time_saving_per_problem": 0.6517915127814436,
+    "time_saving_ci_low": -4.5511949116771575,
+    "time_saving_ci_high": 5.562486382562202,
+    "false_abort_rate": 0.1320754716981132,
+    "n_aborted": 53,
+    "n_false_abort": 7
+  }
+}

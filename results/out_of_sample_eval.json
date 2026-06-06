@@ -1,0 +1,51 @@
+{
+  "split": {
+    "n_train_problems": 40,
+    "n_test_problems": 10,
+    "n_train_captures": 120,
+    "n_test_captures": 30
+  },
+  "test_probe_auroc": 0.9683257918552035,
+  "configs": {
+    "Aggressive c5_t0.5_a2": {
+      "n": 30,
+      "n_aborted": 19,
+      "abort_rate": 0.6333333333333333,
+      "false_abort_rate": 0.3157894736842105,
+      "sensitivity": 1.0,
+      "tokens_saved_pct": 0.2510330578512397,
+      "tp_aborts": 13,
+      "fp_aborts": 6
+    },
+    "Tuned c10_t0.2_a4": {
+      "n": 30,
+      "n_aborted": 7,
+      "abort_rate": 0.23333333333333334,
+      "false_abort_rate": 0.0,
+      "sensitivity": 0.5384615384615384,
+      "tokens_saved_pct": 0.058884297520661155,
+      "tp_aborts": 7,
+      "fp_aborts": 0
+    },
+    "Best sim c3_t0.2_a3": {
+      "n": 30,
+      "n_aborted": 8,
+      "abort_rate": 0.26666666666666666,
+      "false_abort_rate": 0.0,
+      "sensitivity": 0.6153846153846154,
+      "tokens_saved_pct": 0.06611570247933884,
+      "tp_aborts": 8,
+      "fp_aborts": 0
+    },
+    "Conservative c10_t0.1_a4": {
+      "n": 30,
+      "n_aborted": 3,
+      "abort_rate": 0.1,
+      "false_abort_rate": 0.0,
+      "sensitivity": 0.23076923076923078,
+      "tokens_saved_pct": 0.058884297520661155,
+      "tp_aborts": 3,
+      "fp_aborts": 0
+    }
+  }
+}
