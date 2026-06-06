@@ -99,6 +99,14 @@ def measure_l6_signal(results, feature_name="convergence_slope"):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--n", type=int, default=150, help="number of problems")
+    ap.add_argument("--save-norms", action="store_true", help="save raw L6 norms for distribution analysis")
+    ap.add_argument("--conditions", default="all", help="comma-separated subset: baseline,L0,L1,L2,L3,L4,L5,L0_L5_all")
+    ap.add_argument("--out", default="/Users/apple/Downloads/Py/layerIdentifier/results/mechanistic_L6_N150")
+    args = ap.parse_args()
+
     print("[mech] loading model")
     lm = load_model('/Volumes/BUF_2T_02/models/gemma-4-E4B-it-MLX-8bit')
     print(f"[mech] {quick_summary(lm)}")
@@ -106,32 +114,42 @@ def main():
     layers = resolve_layers(lm.model)
     print(f"[mech] {len(layers)} layers")
 
-    # Use 30 examples for speed
-    examples = build_probe_dataset(seeds=(7, 42))[:30]  # 30 problems
+    # 150 problems = 50 unique × 3 seeds (matches main sweep)
+    examples = build_probe_dataset(seeds=(7, 42, 123))[:args.n]
     print(f"[mech] {len(examples)} problems")
 
-    out_dir = Path('/Users/apple/Downloads/Py/layerIdentifier/results/mechanistic_L6')
+    out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    if args.conditions != "all":
+        conds = [c.strip() for c in args.conditions.split(",")]
+    else:
+        conds = ["baseline", "L0", "L1", "L2", "L3", "L4", "L5", "L0_L5_all"]
 
     all_results = {}
 
     # === BASELINE ===
-    print("\n=== BASELINE ===")
-    t0 = time.perf_counter()
-    baseline = run_captures(lm, examples)
-    baseline_elapsed = time.perf_counter() - t0
-    baseline_auroc = measure_l6_signal(baseline)
-    print(f"  L6 convergence_slope AUROC: {baseline_auroc:.3f}  ({baseline_elapsed:.1f}s)")
-    all_results["baseline"] = {
-        "auroc_l6_convergence_slope": baseline_auroc,
-        "elapsed_s": baseline_elapsed,
-        "n_correct": sum(1 for r in baseline if r["correct"]),
-        "n_problems": len(baseline),
-    }
+    if "baseline" in conds:
+        print("\n=== BASELINE ===")
+        t0 = time.perf_counter()
+        baseline = run_captures(lm, examples)
+        baseline_elapsed = time.perf_counter() - t0
+        baseline_auroc = measure_l6_signal(baseline)
+        print(f"  L6 convergence_slope AUROC: {baseline_auroc:.3f}  ({baseline_elapsed:.1f}s)")
+        all_results["baseline"] = {
+            "auroc_l6_convergence_slope": baseline_auroc,
+            "elapsed_s": baseline_elapsed,
+            "n_correct": sum(1 for r in baseline if r["correct"]),
+            "n_problems": len(baseline),
+        }
+        if args.save_norms:
+            all_results["baseline"]["l6_norms_per_problem"] = [r["l6_norms"] for r in baseline]
 
     # === SINGLE-LAYER ABLATIONS (L0..L5) ===
     print("\n=== SINGLE-LAYER IDENTITY ABLATIONS (L0..L5) ===")
     for abl_idx in range(6):
+        if f"L{abl_idx}" not in conds:
+            continue
         original = layers[abl_idx]
         layers[abl_idx] = IdentityLayer(original)
         try:
@@ -151,34 +169,37 @@ def main():
                 "delta_correct_vs_baseline": delta_correct,
                 "elapsed_s": elapsed,
             }
+            if args.save_norms:
+                all_results[f"ablate_L{abl_idx}"]["l6_norms_per_problem"] = [r["l6_norms"] for r in res]
         finally:
             layers[abl_idx] = original
 
     # === ALL-LAYERS-0-5 ABLATION ===
-    print("\n=== ALL LAYERS L0..L5 IDENTITY ABLATION ===")
-    originals_05 = [layers[i] for i in range(6)]
-    for i in range(6):
-        layers[i] = IdentityLayer(originals_05[i])
-    try:
-        t0 = time.perf_counter()
-        res = run_captures(lm, examples)
-        elapsed = time.perf_counter() - t0
-        auroc = measure_l6_signal(res)
-        n_correct = sum(1 for r in res if r["correct"])
-        delta_correct = n_correct - all_results["baseline"]["n_correct"]
-        delta_auroc = auroc - baseline_auroc
-        print(f"  Ablate L0-L5: AUROC={auroc:.3f} (Δ={delta_auroc:+.3f})  "
-              f"correct={n_correct}/{len(res)} (Δ={delta_correct:+d})  ({elapsed:.1f}s)")
-        all_results["ablate_L0_L5_all"] = {
-            "auroc_l6_convergence_slope": auroc,
-            "delta_auroc_vs_baseline": delta_auroc,
-            "n_correct": n_correct,
-            "delta_correct_vs_baseline": delta_correct,
-            "elapsed_s": elapsed,
-        }
-    finally:
-        for i, orig in enumerate(originals_05):
-            layers[i] = orig
+    if "L0_L5_all" in conds:
+        print("\n=== ALL LAYERS L0..L5 IDENTITY ABLATION ===")
+        originals_05 = [layers[i] for i in range(6)]
+        for i in range(6):
+            layers[i] = IdentityLayer(originals_05[i])
+        try:
+            t0 = time.perf_counter()
+            res = run_captures(lm, examples)
+            elapsed = time.perf_counter() - t0
+            auroc = measure_l6_signal(res)
+            n_correct = sum(1 for r in res if r["correct"])
+            delta_correct = n_correct - all_results["baseline"]["n_correct"]
+            delta_auroc = auroc - baseline_auroc
+            print(f"  Ablate L0-L5: AUROC={auroc:.3f} (Δ={delta_auroc:+.3f})  "
+                  f"correct={n_correct}/{len(res)} (Δ={delta_correct:+d})  ({elapsed:.1f}s)")
+            all_results["ablate_L0_L5_all"] = {
+                "auroc_l6_convergence_slope": auroc,
+                "delta_auroc_vs_baseline": delta_auroc,
+                "n_correct": n_correct,
+                "delta_correct_vs_baseline": delta_correct,
+                "elapsed_s": elapsed,
+            }
+        finally:
+            for i, orig in enumerate(originals_05):
+                layers[i] = orig
 
     # === VERDICT ===
     print("\n=== VERDICT ===")
