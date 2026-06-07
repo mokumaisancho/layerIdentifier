@@ -37,8 +37,8 @@ from src.features import layer_norm_features
 
 
 class IdentityLayer:
-    """Replace a layer's computation with input passthrough.
-    Preserves tuple structure by calling original first."""
+    """Legacy: calls original.__call__ then discards result (wastes compute).
+    Kept for backwards comparison."""
     def __init__(self, original):
         self.original = original
     def __getattr__(self, name):
@@ -49,6 +49,35 @@ class IdentityLayer:
         if isinstance(out, (list, tuple)):
             return (x,) + tuple(out[1:])
         return x
+
+
+class IdentityLayerFast:
+    """Optimized: skips original.__call__ entirely.
+
+    mlx-lm contract (qwen3_5, gemma3, etc.): decoder layers return just
+    hidden_states. The KV-cache is mutated in-place on the cache object
+    passed in — no tuple wrapping needed.
+
+    Skipping compute means:
+      - The ablated layer contributes nothing to the residual stream (correct)
+      - The cache for that layer is never populated (consistent — we don't
+        use it because we also skip compute on subsequent steps)
+
+    Returns args[0] (input hidden_states) unchanged.
+    """
+    def __init__(self, original):
+        # Avoid triggering __setattr__ override during init
+        object.__setattr__(self, '_original', original)
+
+    def __getattr__(self, name):
+        return getattr(self._original, name)
+
+    def __setattr__(self, name, value):
+        # Forward attribute writes (e.g., MLX layer.weight = ...) to original
+        setattr(self._original, name, value)
+
+    def __call__(self, *args, **kwargs):
+        return args[0]
 
 
 def auroc(scores, labels):
@@ -69,15 +98,20 @@ def wrap_prompt(lm, prompt):
 
 
 def run_captures(lm, examples, target_layer=15, feature_name="n_spikes"):
-    """Run captures on `examples`, return per-problem target-layer features + correctness."""
+    """Run captures on `examples`, return per-problem target-layer features + correctness.
+
+    Optimizations vs original:
+      - max_tokens=60 (was 80) — most GSM8K answers fit in <50 tokens
+      - layer_indices=[target_layer] (was None=capture-all) — skip 31 other layer captures
+    """
     results = []
     for i, ex in enumerate(examples, 1):
         np.random.seed(ex.seed)
         prompt = wrap_prompt(lm, ex.prompt)
         trace = generate_with_full_capture(
             lm.model, lm.tokenizer, prompt,
-            max_tokens=80, temperature=0.1,
-            layer_indices=None,
+            max_tokens=60, temperature=0.1,
+            layer_indices=[target_layer],
             stop_sequences=["<|im_end|>"],
         )
         correct = is_correct(trace.text, ex.ground_truth)
@@ -108,7 +142,7 @@ def main():
     ap.add_argument("--n", type=int, default=150)
     ap.add_argument("--target-layer", type=int, default=15)
     ap.add_argument("--feature", default="n_spikes")
-    ap.add_argument("--model", default="/Volumes/BUF_2T_02/models/Qwen3.5-4B-MLX-4bit")
+    ap.add_argument("--model", default="/Volumes/BUF_2T_02/QwenMLB/models/Qwen3.5-4B-MLX-4bit")
     ap.add_argument(
         "--conditions",
         default="baseline,L12,L13,L14,L0_L14_all",

@@ -1,0 +1,208 @@
+{
+  "config": {
+    "n_folds": 5,
+    "n_bootstrap": 1000,
+    "seed": 42,
+    "baseline_L15_n_spikes_auroc": 0.9189938601703308
+  },
+  "per_layer": {
+    "L12": {
+      "n_features": 14,
+      "cv_auroc": {
+        "mean": 0.8319143819143819,
+        "std": 0.05794439990507206,
+        "per_fold": [
+          0.8806818181818181,
+          0.8238636363636362,
+          0.7248677248677249,
+          0.8835978835978836,
+          0.8465608465608466
+        ]
+      },
+      "bootstrap_ci": {
+        "point": 0.8581569224081722,
+        "lower": 0.8261247554879374,
+        "upper": 0.8785046728971962,
+        "half_width": 0.026189958704629424,
+        "n_resamples": 1000
+      },
+      "top_features": [
+        {
+          "feature": "L12_convergence_slope",
+          "auroc": 0.8432949358835036,
+          "direction": "-"
+        },
+        {
+          "feature": "L12_mean_norm",
+          "auroc": 0.8306889806563792,
+          "direction": "-"
+        },
+        {
+          "feature": "L12_n_spikes",
+          "auroc": 0.7485329276244295,
+          "direction": "-"
+        },
+        {
+          "feature": "L12_n_delta_spikes",
+          "auroc": 0.7299500108672028,
+          "direction": "-"
+        },
+        {
+          "feature": "L12_std_norm",
+          "auroc": 0.7128885024994567,
+          "direction": "+"
+        }
+      ]
+    },
+    "L13": {
+      "n_features": 14,
+      "cv_auroc": {
+        "mean": 0.8425324675324676,
+        "std": 0.053787436551659205,
+        "per_fold": [
+          0.9431818181818181,
+          0.8409090909090909,
+          0.798941798941799,
+          0.8359788359788359,
+          0.7936507936507937
+        ]
+      },
+      "bootstrap_ci": {
+        "point": 0.8584062160399912,
+        "lower": 0.8259019778309062,
+        "upper": 0.8845957400565094,
+        "half_width": 0.029346881112801593,
+        "n_resamples": 1000
+      },
+      "top_features": [
+        {
+          "feature": "L13_convergence_slope",
+          "auroc": 0.8419908715496631,
+          "direction": "-"
+        },
+        {
+          "feature": "L13_n_spikes",
+          "auroc": 0.8201477939578352,
+          "direction": "-"
+        },
+        {
+          "feature": "L13_mean_norm",
+          "auroc": 0.8013475331449685,
+          "direction": "-"
+        },
+        {
+          "feature": "L13_delta_std",
+          "auroc": 0.7189741360573788,
+          "direction": "+"
+        },
+        {
+          "feature": "L13_delta_variance",
+          "auroc": 0.7189741360573788,
+          "direction": "+"
+        }
+      ]
+    },
+    "L14": {
+      "n_features": 14,
+      "cv_auroc": {
+        "mean": 0.885563973063973,
+        "std": 0.039429671537817707,
+        "per_fold": [
+          0.9431818181818181,
+          0.8920454545454546,
+          0.8783068783068783,
+          0.8941798941798942,
+          0.82010582010582
+        ]
+      },
+      "bootstrap_ci": {
+        "point": 0.9042588567702674,
+        "lower": 0.8767550532492937,
+        "upper": 0.9206748532927626,
+        "half_width": 0.021959900021734424,
+        "n_resamples": 1000
+      },
+      "top_features": [
+        {
+          "feature": "L14_n_spikes",
+          "auroc": 0.8568789393610086,
+          "direction": "-"
+        },
+        {
+          "feature": "L14_convergence_slope",
+          "auroc": 0.8493805694414258,
+          "direction": "-"
+        },
+        {
+          "feature": "L14_n_delta_spikes",
+          "auroc": 0.80569441425777,
+          "direction": "-"
+        },
+        {
+          "feature": "L14_delta_std",
+          "auroc": 0.7870028254727235,
+          "direction": "+"
+        },
+        {
+          "feature": "L14_delta_variance",
+          "auroc": 0.7870028254727235,
+          "direction": "+"
+        }
+      ]
+    },
+    "L15": {
+      "n_features": 14,
+      "cv_auroc": {
+        "mean": 0.9101370851370852,
+        "std": 0.06581741074830408,
+        "per_fold": [
+          0.9375,
+          0.9147727272727273,
+          0.783068783068783,
+          0.9682539682539683,
+          0.9470899470899471
+        ]
+      },
+      "bootstrap_ci": {
+        "point": 0.9145390132579874,
+        "lower": 0.888931753966529,
+        "upper": 0.9302325581395349,
+        "half_width": 0.020650402086502928,
+        "n_resamples": 1000
+      },
+      "top_features": [
+        {
+          "feature": "L15_n_spikes",
+          "auroc": 0.8891545316235601,
+          "direction": "-"
+        },
+        {
+          "feature": "L15_convergence_slope",
+          "auroc": 0.8246033470984568,
+          "direction": "-"
+        },
+        {
+          "feature": "L15_mean_norm",
+          "auroc": 0.8059117583134101,
+          "direction": "-"
+        },
+        {
+          "feature": "L15_early_spike_ratio",
+          "auroc": 0.7350575961747445,
+          "direction": "+"
+        },
+        {
+          "feature": "L15_max_positive_delta",
+          "auroc": 0.6515974788089546,
+          "direction": "-"
+        }
+      ]
+    }
+  },
+  "verdict": {
+    "L14_auroc": 0.885563973063973,
+    "L15_auroc": 0.9101370851370852,
+    "diff": 0.02457311207311219,
+    "interpretation": "CARRIER+WRITER: L14 holds the signal at the feature level"
+  }
+}
